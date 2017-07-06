@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, height=device-height" />
+	<link href="kendo/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="kendo/styles/kendo.default.min.css" rel="stylesheet" />
+    <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
+    <link href="styles/main.css" rel="stylesheet" />
+
+    <script src="cordova.js"></script>
+    <script src="kendo/js/jquery.min.js"></script>
+    <script src="kendo/js/kendo.all.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+	
+	<script src="scripts/app.js"></script>
+    <script src="scripts/login.js"></script>
+    <script src="scripts/location.js"></script>
+    <script src="scripts/weather.js"></script>
+	<script src="scripts/questions.js"></script>
+
+</head>
+<body>
+    <!--Home View-->
+    <div id="tabstrip-home"
+        data-role="view"
+        data-title="Home" >
+
+        <div style="text-align:center;">
+			<img src="./styles/images/ekol.png"  style="height:170px; width:170px;"/>
+        </div> 
+		
+		<div style="height:106px; width:1280px; margin:0px; padding:0px; border:0px;">
+			<img src="./styles/images/Title.png" style="height:85px; width:1024px; margin:0px; padding:0px; border:0px;"/>
+        </div>
+		
+		<input type="image" src="./styles/images/acilservis.png" style="height:156px; width:355px;" onclick="myfunc(this)" value="18" class="acilhasta" />
+		
+		<input type="image" src="./styles/images/ayaktahasta.png" style="height:156px; width:355px;" onclick="myfunc(this)" value="19" class="ayaktahasta" />
+		
+		<input type="image" src="./styles/images/yatanhasta.png" style="height:156px; width:355px;" onclick="myfunc(this)" value="20" class="yatanhasta" />
+		
+		<input type="image" src="./styles/images/refakatci.png" style="height:156px; width:355px;" onclick="myfunc(this)" value="21" class="refakatci" />
+		
+		<!--
+		<a style="">
+			<img src="./styles/images/acilservis.png" style="height:156px; width:355px;" onclick="myfunc()"/>
+        </a>
+		
+		<a style="">
+			<img src="./styles/images/acilservis.png" style="height:156px; width:355px;" onclick="myfunc()"/>
+        </a>
+		
+		<a style=""> 
+			<img src="./styles/images/acilservis.png" style="height:156px; width:355px;" onclick="myfunc()"/>
+        </a>
+		-->
+    
+    </div>
+	
+	<!--User Info-->
+    <div id="userInfo"
+        data-role="view"
+        data-title="Kişisel Bilgiler"
+		data-init="initForm"
+		data-before-show="resetForm">
+		
+		<div data-role="header" >
+            <div data-role="navbar">
+				<a class="nav-button" style="font-size:1.5em;" data-align="left" data-role="backbutton">Gerİ</a>
+                <span data-role="view-title"></span>
+				<a data-role="button" class="nav-button" style="font-size:1.5em;" data-align="right" data-click="app.getUser">İlerİ</a>
+            </div>
+        </div>
+		
+		<form>
+		<ul data-role="listview" data-style="inset" id="information">
+			<!--
+            <li id="bolum" class="userInfo" style="width:550px; margin-right:0px;" >
+				Hizmet Aldığınız Bölüm:
+				
+            </li>
+            -->
+            <li id="bolum" class="userInfo" style="padding-right:0px;">
+                Hizmet Aldığınız Bölüm: 
+                <input id="department" value=""/> 
+            </li>
+            <li id="application" class="userInfo">
+                <label style="width:500px;">Hastanemize İlk Başvurunuz mu?
+                    <select id="dropdown" name="dropdown">
+                        <option value="1">Evet</option>
+                        <option value="2">Hayır</option>
+                    </select>
+                </label>
+            </li>
+			
+			<li class="userInfo">
+                <label>Adınız Soyadınız
+                    <input id="name" type="text" placeholder="Ad Soyad" value="" />
+                </label>
+            </li>
+			<li id="gender" class="userInfo">
+                <label>Cinsiyetiniz?
+                    <select id="dropdown2" name="dropdown">
+                        <option value="1">Erkek</option>
+                        <option value="2">Kadın</option>
+                    </select>
+                </label>
+            </li>
+			<li id="birth" class="userInfo">
+                <label>
+                    Doğum Tarihi
+                    <input type="date" value="1970-01-01" />
+                </label>
+            </li>
+			<li id="marriageStatus" class="userInfo">
+                <label>Medeni Durumunuz
+                    <select id="dropdown3" name="dropdown">
+                        <option value="1">Evli</option>
+                        <option value="2">Bekar</option>
+                    </select>
+                </label>
+            </li>
+			<li id="phone" class="userInfo">
+                <label>
+                    Telefon Numaranız
+                    <input type="tel" placeholder="0284 123 4567" value="" />
+                </label>
+            </li>
+			<li id="mail" class="userInfo">
+                <label>
+                    E-mail Adresiniz
+                    <input type="email" placeholder="ornek@ornek.com" value="" />
+                </label>
+            </li>
+			<li id="educationStatus" class="userInfo">
+                <label>Öğrenim Durumunuz
+                    <select id="dropdown4" name="dropdown">
+                        <option value="1">Okuryazar değil</option>
+                        <option value="2">Okuryazar</option>
+                        <option value="3">İlkokul/Ortaokul</option>
+                        <option value="4">Lise ve dengi okul</option>
+                        <option value="5">Üniversite ve Üstü</option>
+                    </select>
+                </label>
+            </li>
+			<li id="healthStatus" class="userInfo">
+                <label>Sağlık Güvenceniz
+                    <select id="dropdown5" name="dropdown">
+                        <option value="1">Özel Sağlık Sigortası</option>
+                        <option value="2">Devlet Memurları Mevzuatı</option>
+                        <option value="3">Emekli Sandığı Mevzuatı</option>
+                        <option value="4">Kendi Olanaklarım</option>
+                        <option value="5">SGK Mevzuatı</option>
+                        <option value="6">Kurum/Kuruluş Sağlık Yardımı</option>
+                    </select>
+                </label>
+            </li>
+			<li id="reason" class="userInfo">
+                <label>Hastanemizi Tercih Etme Sebebiniz
+                    <select id="dropdown6" name="dropdown">
+                        <option value="1">Tavsiye</option>
+                        <option value="2">Doktor Tavsiyesi</option>
+                        <option value="3">Hekim Tercihi</option>
+                        <option value="4">Daha önceki hizmetlerden memnun olmam</option>
+                        <option value="5">Hastanenin evime / işime yakın olması</option>
+                        <option value="6">Çalıştığım kurumun anlaşması ve sosyal güvencem</option>
+                    </select>
+                </label>
+            </li>
+		</ul>
+        
+    </form>
+    </div>
+	
+	<!--Login View-->
+    <div id="questions"
+        data-role="view"
+        data-title="Sorular"
+		data-model="app.questionService.viewModel"
+		data-before-show="app.questionService.onInit">
+
+		<div data-role="header">
+            <div data-role="navbar">
+				<a class="nav-button" data-align="left" data-role="backbutton" style="font-size:1.5em;" href="#tabstrip-home">Geri</a>
+                <span data-role="view-title"></span>
+<!--			<a class="nav-button" data-role="button" data-align="right" href="#tabstrip-home" style="font-size:1.5em;">İleri</a>-->
+            </div>
+        </div>
+		
+		<div id="listQuestion" data-role="content">
+			<ul data-role="listview" data-style="inset" data-type="group">
+				<li id="deneQuestion" style="text-align:center;" >
+					
+                </li>
+            </ul>
+			<div style="text-align:center;">
+				<button id="sendQuestion" data-role="button" style="text-align:center; width:400px;" onclick="myquestion()">Gönder</button>
+				<br>
+				<br>
+	        </div>
+        </div>
+        
+    </div>
+	
+
+    <!--Login View-->
+    <div id="tabstrip-login"
+        data-role="view"
+        data-title="Login"
+        data-model="app.loginService.viewModel">
+
+        <div class="logo-image"></div>
+        <div>
+            <h3 data-bind="visible: isLoggedIn">Welcome, <span data-bind="    text: username"></span>!</h3>
+            <input id="logout" type="submit" data-role="button" data-bind="click: onLogout, visible: isLoggedIn" value="Logout" class="login-button" />
+        </div>
+        <form data-bind="events: { keyup: checkEnter }">
+            <h3 data-bind="invisible: isLoggedIn">Enter your credentials:</h3>
+            <ul data-role="listview" data-style="inset" data-bind="invisible: isLoggedIn">
+                <li>
+                    <label>
+                        <div>Username</div>
+                        <input type="text" data-bind="value: username" />
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <div>Password</div>
+                        <input type="password" data-bind="value: password" />
+                    </label>
+                </li>
+            </ul>
+            <input id="login" type="submit" data-role="button" data-bind="click: onLogin, invisible: isLoggedIn" value="Login" class="login-button" />
+        </form>
+    </div>
+
+    <!--Location View-->
+    <div id="tabstrip-location"
+        data-role="view"
+        data-title="Location"
+        data-init="app.locationService.initLocation"
+        data-show="app.locationService.show"
+        data-hide="app.locationService.hide"
+        data-model="app.locationService.viewModel"
+        data-stretch="true">
+
+        <div id="map-canvas" class="map" data-bind="visible: isGoogleMapsInitialized"></div>
+
+        <div id="no-map" data-bind="invisible: isGoogleMapsInitialized">
+            <h3>Location requires internet connection to display the map.</h3>
+        </div>
+        <div id="map-search-wrap" class="map-tools" data-bind="visible: isGoogleMapsInitialized">
+            <div>
+                <button id="map-navigate-home" class="map-tools-button home" data-bind="click: onNavigateHome"></button>
+                <input id="map-address" type="search" class="map-tools-input" data-bind="value: address" placeholder="Address" />
+                <button id="map-search" class="map-tools-button search" data-bind="click: onSearchAddress"></button>
+            </div>
+        </div>
+    </div>
+
+    <!--Weather View-->
+    <div id="tabstrip-weather"
+        data-role="view"
+        data-title="Weather"
+        data-model="app.weatherService.viewModel">
+
+        <ul data-role="listview" data-style="inset"
+            data-bind="source: weatherDataSource"
+            data-template="weather-forecast-template">
+        </ul>
+    </div>
+
+    <!--Weather forecast template-->
+    <script id="weather-forecast-template" type="text/x-kendo-tmpl">
+        <div class="w-item-template">
+            <span class="w-icon ${image}"></span>
+            <h4 class="w-date">${day}</h4>
+            <div class="w-temp">
+                <span>${highTemperature}<sup>&deg;</sup></span>
+                <span>${lowTemperature}<sup>&deg;</sup></span>
+            </div>
+        </div>
+    </script>
+
+    <!--Layout -->
+    <div data-role="layout" data-id="tabstrip-layout">
+        <!--Header
+        <div data-role="header">
+            <div data-role="navbar">
+                <span data-role="view-title"></span>
+            </div>
+        </div> -->
+		
+        <!--Footer
+        <div data-role="footer">
+            <div data-role="tabstrip">
+                <a href="#/" data-icon="home">Home</a>
+                <a href="#tabstrip-login" data-icon="contacts">Login</a>
+                <a href="#tabstrip-location" data-icon="search">Location</a>
+                <a href="#tabstrip-weather" data-icon="globe">Weather</a>
+            </div>
+        </div>-->
+    </div>
+	<script type="text/x-kendo-template" id="foo">
+		#= idx #
+	</script>
+	<script>
+		var catid=0;
+		function myfunc(e) {
+			/*alert(window.screen.height);
+			alert(window.screen.width);
+			alert(window.devicePixelRatio);*/
+			catid=$(e).val();
+			app.questionService.viewModel.catid = catid;
+			window.location.href="#userInfo";
+        }
+		
+		 function initForm(e) {
+	        var body = $(".km-pane");
+
+	        if (kendo.ui.DropDownList) {
+	            $("select[name=dropdown]").kendoDropDownList({
+	                // The options are needed only for the desktop demo, remove them for mobile.
+	                popup: { appendTo: body },
+	                animation: { open: { effects: body.hasClass("km-android") ? "fadeIn" : body.hasClass("km-ios") || body.hasClass("km-wp") ? "slideIn:up" : "slideIn:down" } }
+	            });
+	        }
+             var data = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: "data/department.json",
+                        dataType: "json"
+                    }
+                }
+            });
+
+             $("#department").kendoAutoComplete({
+                dataSource: data,
+                dataTextField:"name",
+                filter: "startswith",
+                placeholder: "Tıklayınız",
+                });
+		 	/*
+			 e.view.element.find("#filt").kendoMobileListView({
+		        dataSource: [ "foor","bar", "sasdaa"  ],
+		        filterable: {
+					operator:"contains"
+                }
+		    });
+		
+			 $("#filt >li").each(function() {
+				 $(this).click(function() {
+					$("#bolum").text("Hizmet Aldığınız Bölüm: " + $(this).html()); 
+					$("#filt").css("display", "none");
+             	});
+             });
+			 
+			$("input[type=search]").focus(function() {
+				$("#filt").css("display", "inline");
+            });
+			 
+			 $("input[type=search]").keyup(function() {
+				$("#filt >li").each(function() {
+					 $(this).click(function() {
+						$("#bolum").text("Hizmet Aldığınız Bölüm: " + $(this).html());
+						$("#filt").css("display", "none");
+						 
+	             	});
+	             });
+				
+				 
+             });
+			 
+			
+			 $("input[type=search]").blur(function() {
+				if($(this).val() == '' ){
+					$("#filt").css("display", "none");
+				}
+				else{
+					$("#filt").css("display", "inline");
+                }
+				
+            });
+			*/
+			
+			 
+		}
+		
+		function resetForm() {
+			$("#department").val("");
+			//$("#dropdown").val(1);
+			$("#name").val("");
+			//$("#dropdown2 option[value='1']").attr('selected', 'selected');
+			$("#birth input").val("1970-01-01");
+			//$("#dropdown3 option[value='1']").attr('selected', 'selected');
+			$("#phone input").val("");
+			$("#mail input").val("");
+			/*
+            $("#dropdown4 option[value='1']").attr('selected', 'selected');
+			$("#dropdown5 option[value='1']").attr('selected', 'selected');
+            $("#dropdown6 option[value='1']").attr('selected', 'selected');
+            */ 
+        }
+        function alerting() {
+            alert("1123");
+        }
+		
+		function myquestion() {
+			app.questionService.viewModel.sendQuestion();
+        }
+		
+		
+    </script>
+</body>
+</html>
